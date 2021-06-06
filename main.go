@@ -4,7 +4,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"log"
-	"math/rand"
 	"net/http"
 	"os"
 )
@@ -100,14 +99,20 @@ func HandleMove(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// Choose a random direction to move in
-	possibleMoves := []string{"up", "down", "left", "right"}
-	move := possibleMoves[rand.Intn(len(possibleMoves))]
+	// possibleMoves := []string{"up", "down", "left", "right"}
+	// move := possibleMoves[rand.Intn(len(possibleMoves))]
 
-	move = "down"
-	head := request.You.Head
-	if head.Y == 0 {
-		move = "left"
-	}
+	// move = "down"
+	// head := request.You.Head
+	// if head.Y == 0 {
+	// 	move = "left"
+	// }
+	// if head.X == 0 {
+	// 	move = "up"
+	// }
+
+	possibleMoves := []string{"up", "right", "down", "left"}
+	move := possibleMoves[request.Turn%4]
 
 	response := MoveResponse{
 		Move: move,
