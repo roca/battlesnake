@@ -102,7 +102,6 @@ func HandleMove(w http.ResponseWriter, r *http.Request) {
 	// Choose a random direction to move in
 	possibleMoves := []string{"up", "down", "left", "right"}
 	move := possibleMoves[rand.Intn(len(possibleMoves))]
-  move = "left"
 
 	response := MoveResponse{
 		Move: move,
