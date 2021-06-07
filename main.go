@@ -6,6 +6,9 @@ import (
 	"log"
 	"net/http"
 	"os"
+	"math/rand"
+	"github.com/roca/battlesnake/types"
+	"github.com/roca/battlesnake/strategies"
 )
 
 type Game struct {
@@ -13,17 +16,13 @@ type Game struct {
 	Timeout int32  `json:"timeout"`
 }
 
-type Coord struct {
-	X int `json:"x"`
-	Y int `json:"y"`
-}
 
 type Battlesnake struct {
 	ID     string  `json:"id"`
 	Name   string  `json:"name"`
 	Health int32   `json:"health"`
-	Body   []Coord `json:"body"`
-	Head   Coord   `json:"head"`
+	Body   []types.Coord `json:"body"`
+	Head   types.Coord   `json:"head"`
 	Length int32   `json:"length"`
 	Shout  string  `json:"shout"`
 }
@@ -31,7 +30,7 @@ type Battlesnake struct {
 type Board struct {
 	Height int           `json:"height"`
 	Width  int           `json:"width"`
-	Food   []Coord       `json:"food"`
+	Food   []types.Coord       `json:"food"`
 	Snakes []Battlesnake `json:"snakes"`
 }
 
@@ -77,6 +76,7 @@ func HandleIndex(w http.ResponseWriter, r *http.Request) {
 // HandleStart is called at the start of each game your Battlesnake is playing.
 // The GameRequest object contains information about the game that's about to start.
 // TODO: Use this function to decide how your Battlesnake is going to look on the board.
+
 func HandleStart(w http.ResponseWriter, r *http.Request) {
 	request := GameRequest{}
 	err := json.NewDecoder(r.Body).Decode(&request)
@@ -98,21 +98,13 @@ func HandleMove(w http.ResponseWriter, r *http.Request) {
 		log.Fatal(err)
 	}
 
-	// Choose a random direction to move in
-	// possibleMoves := []string{"up", "down", "left", "right"}
-	// move := possibleMoves[rand.Intn(len(possibleMoves))]
+	//Choose a random direction to move in
+	possibleMoves := []string{"up", "down", "left", "right"}
+	move := possibleMoves[rand.Intn(len(possibleMoves))]
 
-	// move = "down"
-	// head := request.You.Head
-	// if head.Y == 0 {
-	// 	move = "left"
-	// }
-	// if head.X == 0 {
-	// 	move = "up"
-	// }
-
-	possibleMoves := []string{"up", "right", "down", "left"}
-	move := possibleMoves[request.Turn%4]
+	for !strategies.AvoidWalls(request.You.Head,move) {
+		move = possibleMoves[rand.Intn(len(possibleMoves))]	
+	}
 
 	response := MoveResponse{
 		Move: move,
