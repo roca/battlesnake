@@ -1,9 +1,13 @@
 package strategies
 
-import "github.com/roca/battlesnake/types"
+import (
+	"fmt"
+	"github.com/roca/battlesnake/types"
+)
 
 func AvoidWalls(board types.Board, currentHead types.Coord, next_move string) bool {
 	futureHead := predict_future_position(currentHead, next_move)
+	fmt.Println(board, futureHead)
 
 	if futureHead.X < 0 || futureHead.Y < 0 {
 		return false
@@ -24,10 +28,10 @@ func predict_future_position(currentHead types.Coord, next_move string) types.Co
 	switch next_move {
 	case "left":
 		// moving left means increasing x by 1
-		futureHead.X = currentHead.X + 1
+		futureHead.X = currentHead.X - 1
 	case "right":
 		// moving right means decreasing x by 1
-		futureHead.X = currentHead.X - 1
+		futureHead.X = currentHead.X + 1
 	case "up":
 		// moving up means increasing Y by 1
 		futureHead.Y = currentHead.Y + 1
