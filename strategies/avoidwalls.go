@@ -10,10 +10,10 @@ func AvoidWalls(board types.Board, currentHead types.Coord, next_move string) bo
 	if futureHead.X < 0 || futureHead.Y < 0 {
 		return false
 	}
-	if futureHead.X > board.Width {
+	if futureHead.X >= board.Width {
 		return false
 	}
-	if futureHead.Y > board.Height {
+	if futureHead.Y >= board.Height {
 		return false
 	}
 
