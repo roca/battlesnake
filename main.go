@@ -61,7 +61,10 @@ func HandleMove(w http.ResponseWriter, r *http.Request) {
 
 	for {
 		move = possibleMoves[rand.Intn(len(possibleMoves))]
-    safe := strategies.AvoidSelf(request.You.Head, request.You.Body,move) &&strategies.AvoidWalls(request.Board, request.You.Head, move) 
+    safe1 := strategies.AvoidSelf(request.You.Head, request.You.Body,move)  
+    safe2 := strategies.AvoidWalls(request.Board, request.You.Head, move) 
+    safe := safe1 && safe2
+    fmt.Println(move,safe1,safe2)
     if safe {
       break
     }
