@@ -20,6 +20,8 @@ func AvoidWalls(board types.Board, currentHead types.Coord, next_move string) bo
 	return true
 }
 
+
+
 func predict_future_position(currentHead types.Coord, next_move string) types.Coord {
 	futureHead := currentHead
 
