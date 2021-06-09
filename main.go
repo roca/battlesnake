@@ -57,10 +57,14 @@ func HandleMove(w http.ResponseWriter, r *http.Request) {
 
 	//Choose a random direction to move in
 	possibleMoves := []string{"up", "down", "left", "right"}
-	move := possibleMoves[rand.Intn(len(possibleMoves))]
+	 var move string
 
-	for !strategies.AvoidSelf(request.You.Head, request.You.Body,move) &&!strategies.AvoidWalls(request.Board, request.You.Head, move) {
+	for {
 		move = possibleMoves[rand.Intn(len(possibleMoves))]
+    safe := strategies.AvoidSelf(request.You.Head, request.You.Body,move) &&strategies.AvoidWalls(request.Board, request.You.Head, move) 
+    if safe {
+      break
+    }
 	}
 
 	response := types.MoveResponse{

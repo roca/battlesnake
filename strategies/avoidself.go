@@ -11,7 +11,7 @@ func AvoidSelf(currentHead types.Coord, currentBody []types.Coord, next_move str
   for _,coord := range currentBody{
     
     if futureHead.X == coord.X || futureHead.Y == coord.Y {
-      fmt.Println("Ran into body",futureHead,coord)
+      fmt.Println("Ran into body",futureHead,coord,next_move)
       return false
     }
   }
