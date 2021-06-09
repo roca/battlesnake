@@ -1,13 +1,11 @@
 package strategies
 
 import (
-	"fmt"
 	"github.com/roca/battlesnake/types"
 )
 
 func AvoidWalls(board types.Board, currentHead types.Coord, next_move string) bool {
 	futureHead := predict_future_position(currentHead, next_move)
-	fmt.Println(board, futureHead)
 
 	if futureHead.X < 0 || futureHead.Y < 0 {
 		return false
