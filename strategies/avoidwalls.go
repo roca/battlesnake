@@ -20,21 +20,19 @@ func AvoidWalls(board types.Board, currentHead types.Coord, next_move string) bo
 	return true
 }
 
-
-
 func predict_future_position(currentHead types.Coord, next_move string) types.Coord {
 	futureHead := currentHead
 
 	switch next_move {
 	case "left":
 		// moving left means decreasing X by 1
-		futureHead.X -=  1
+		futureHead.X -= 1
 	case "right":
 		// moving right means increasing X by 1
 		futureHead.X += 1
 	case "up":
 		// moving up means increasing Y by 1
-		futureHead.Y +=  1
+		futureHead.Y += 1
 	case "down":
 		// moving down means decreasing Y by 1
 		futureHead.Y -= 1

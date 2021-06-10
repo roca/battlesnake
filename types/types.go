@@ -27,7 +27,6 @@ type Game struct {
 	Timeout int32  `json:"timeout"`
 }
 
-
 type BattlesnakeInfoResponse struct {
 	APIVersion string `json:"apiversion"`
 	Author     string `json:"author"`

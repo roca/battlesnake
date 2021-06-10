@@ -59,16 +59,16 @@ func HandleMove(w http.ResponseWriter, r *http.Request) {
 	possibleMoves := []string{"up", "down", "left", "right"}
 	move := possibleMoves[rand.Intn(len(possibleMoves))]
 
-	for i := 0; i < 1000 ; i++{
-		
-    avoidedSelf := strategies.AvoidSelf(request.You.Head, request.You.Body,move)  
-    avoidedWall := strategies.AvoidWalls(request.Board, request.You.Head, move) 
-    safe := avoidedSelf&& avoidedWall
-    fmt.Println(move,"AvoidedSelf:",avoidedSelf,"AvoidWall:", avoidedWall)
-    if safe {
-      break
-    }
-    move = possibleMoves[rand.Intn(len(possibleMoves))]
+	for i := 0; i < 1000; i++ {
+
+		avoidedSelf := strategies.AvoidSelf(request.You.Head, request.You.Body, move)
+		avoidedWall := strategies.AvoidWalls(request.Board, request.You.Head, move)
+		safe := avoidedSelf && avoidedWall
+		fmt.Println(move, "AvoidedSelf:", avoidedSelf, "AvoidWall:", avoidedWall)
+		if safe {
+			break
+		}
+		move = possibleMoves[rand.Intn(len(possibleMoves))]
 	}
 
 	response := types.MoveResponse{
