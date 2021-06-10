@@ -57,17 +57,18 @@ func HandleMove(w http.ResponseWriter, r *http.Request) {
 
 	//Choose a random direction to move in
 	possibleMoves := []string{"up", "down", "left", "right"}
-	 var move string
+	move := possibleMoves[rand.Intn(len(possibleMoves))]
 
-	for {
-		move = possibleMoves[rand.Intn(len(possibleMoves))]
-    safe1 := strategies.AvoidSelf(request.You.Head, request.You.Body,move)  
-    safe2 := strategies.AvoidWalls(request.Board, request.You.Head, move) 
-    safe := safe1 && safe2
-    fmt.Println(move,safe1,safe2)
+	for i := 0; i < 1000 ; i++{
+		
+    avoidedSelf := strategies.AvoidSelf(request.You.Head, request.You.Body,move)  
+    avoidedWall := strategies.AvoidWalls(request.Board, request.You.Head, move) 
+    safe := avoidedSelf&& avoidedWall
+    fmt.Println(move,"AvoidedSelf:",avoidedSelf,"AvoidWall:", avoidedWall)
     if safe {
       break
     }
+    move = possibleMoves[rand.Intn(len(possibleMoves))]
 	}
 
 	response := types.MoveResponse{
