@@ -62,10 +62,8 @@ func HandleMove(w http.ResponseWriter, r *http.Request) {
 
 	for i := 0; i < 1000; i++ {
 
-		avoidedSnakes := strategies.AvoidSnakes(request.Board,request.You, move)
-		avoidedWall := strategies.AvoidWalls(request.Board, request.You.Head, move)
-		safe := avoidedSnakes && avoidedWall
-		fmt.Println(move, "AvoidedSnakes:", avoidedSnakes, "AvoidWall:", avoidedWall)
+		safe := strategies.AvoidSnakes(request.Board,request.You, move) && strategies.AvoidWalls(request.Board, request.You.Head, move)
+		fmt.Println(move, "AvoidedSnakes:", safe)
 		if safe {
 			break
 		}
