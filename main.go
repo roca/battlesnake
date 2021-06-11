@@ -3,12 +3,13 @@ package main
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/roca/battlesnake/strategies"
-	"github.com/roca/battlesnake/types"
 	"log"
 	"math/rand"
 	"net/http"
 	"os"
+
+	"github.com/roca/battlesnake/strategies"
+	"github.com/roca/battlesnake/types"
 )
 
 // HandleIndex is called when your Battlesnake is created and refreshed
@@ -61,7 +62,7 @@ func HandleMove(w http.ResponseWriter, r *http.Request) {
 
 	for i := 0; i < 1000; i++ {
 
-		avoidedSelf := strategies.AvoidSelf(request.You.Head, request.You.Body, move)
+		avoidedSelf := strategies.AvoidSelf(request.You, move)
 		avoidedWall := strategies.AvoidWalls(request.Board, request.You.Head, move)
 		safe := avoidedSelf && avoidedWall
 		fmt.Println(move, "AvoidedSelf:", avoidedSelf, "AvoidWall:", avoidedWall)
