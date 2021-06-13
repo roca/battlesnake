@@ -68,6 +68,7 @@ func HandleMove(w http.ResponseWriter, r *http.Request) {
 		if safe {
 			break
 		}
+		// Drop unsafe move from possible moves
 		possibleMoves = filter.Drop(possibleMoves, func(m string) bool {
 			return m == move
 		}).([]string)
