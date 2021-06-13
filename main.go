@@ -3,12 +3,14 @@ package main
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/roca/battlesnake/strategies"
-	"github.com/roca/battlesnake/types"
 	"log"
 	"math/rand"
 	"net/http"
 	"os"
+
+	"github.com/robpike/filter"
+	"github.com/roca/battlesnake/strategies"
+	"github.com/roca/battlesnake/types"
 )
 
 // HandleIndex is called when your Battlesnake is created and refreshed
@@ -59,13 +61,18 @@ func HandleMove(w http.ResponseWriter, r *http.Request) {
 	possibleMoves := []string{"up", "down", "left", "right"}
 	move := possibleMoves[rand.Intn(len(possibleMoves))]
 
-	for i := 0; i < 1000; i++ {
+	for i := 0; i < 4; i++ {
 
-		avoidedSelf := strategies.AvoidSelf(request.You.Head, request.You.Body, move)
-		avoidedWall := strategies.AvoidWalls(request.Board, request.You.Head, move)
-		safe := avoidedSelf && avoidedWall
-		fmt.Println(move, "AvoidedSelf:", avoidedSelf, "AvoidWall:", avoidedWall)
-		if safe {
+		safe := strategies.AvoidSnakes(request.Board, request.You, move) && strategies.AvoidWalls(request.Board, request.You.Head, move)
+		fmt.Println(move,"Attempt",i, "AvoidedSnakes:", safe)
+		if safe || len(possibleMoves) == 0 {
+			break
+		}
+		// Drop unsafe move from possible moves
+		possibleMoves = filter.Drop(possibleMoves, func(m string) bool {
+			return m == move
+		}).([]string)
+    if len(possibleMoves) == 0 {
 			break
 		}
 		move = possibleMoves[rand.Intn(len(possibleMoves))]
