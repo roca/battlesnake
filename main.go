@@ -8,6 +8,7 @@ import (
 	"net/http"
 	"os"
 
+	"github.com/robpike/filter"
 	"github.com/roca/battlesnake/strategies"
 	"github.com/roca/battlesnake/types"
 )
@@ -62,11 +63,14 @@ func HandleMove(w http.ResponseWriter, r *http.Request) {
 
 	for i := 0; i < 1000; i++ {
 
-		safe := strategies.AvoidSnakes(request.Board,request.You, move) && strategies.AvoidWalls(request.Board, request.You.Head, move)
+		safe := strategies.AvoidSnakes(request.Board, request.You, move) && strategies.AvoidWalls(request.Board, request.You.Head, move)
 		fmt.Println(move, "AvoidedSnakes:", safe)
 		if safe {
 			break
 		}
+		possibleMoves = filter.Drop(possibleMoves, func(m string) bool {
+			return m == move
+		}).([]string)
 		move = possibleMoves[rand.Intn(len(possibleMoves))]
 	}
 
