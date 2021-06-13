@@ -65,7 +65,7 @@ func HandleMove(w http.ResponseWriter, r *http.Request) {
 
 		safe := strategies.AvoidSnakes(request.Board, request.You, move) && strategies.AvoidWalls(request.Board, request.You.Head, move)
 		fmt.Println(move, "AvoidedSnakes:", safe)
-		if safe {
+		if safe || len(possibleMoves) == 0 {
 			break
 		}
 		// Drop unsafe move from possible moves
