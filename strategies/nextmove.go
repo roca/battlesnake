@@ -16,7 +16,7 @@ func AvoidSnakesAndWalls(game types.GameRequest) string {
 
 		safe := AvoidSnakes(game.Board, game.You, move) && AvoidWalls(game.Board, game.You.Head, move)
 		fmt.Println(move, "Attempt", i, "AvoidedSnakes:", safe)
-		if safe || len(possibleMoves) == 0 {
+		if safe {
 			break
 		}
 		// Drop unsafe move from possible moves
@@ -24,6 +24,7 @@ func AvoidSnakesAndWalls(game types.GameRequest) string {
 			return m == move
 		}).([]string)
 		if len(possibleMoves) == 0 {
+			move = "up" // fallback case when no more moves are available
 			break
 		}
 		move = possibleMoves[rand.Intn(len(possibleMoves))]
