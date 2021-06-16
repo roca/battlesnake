@@ -23,7 +23,9 @@ func AvoidSnakesAndWalls(game types.GameRequest) string {
 		possibleMoves = filter.Drop(possibleMoves, func(m string) bool {
 			return m == move
 		}).([]string)
-		
+		if len(possibleMoves) == 0 {
+			break
+		}
 		move = possibleMoves[rand.Intn(len(possibleMoves))]
 	}
 	return move
