@@ -56,7 +56,7 @@ func HandleMove(w http.ResponseWriter, r *http.Request) {
 	}
 
 	response := types.MoveResponse{
-		Move: strategies.AvoidSelfWallsFood(request),
+		Move: strategies.AvoidSelfWallsAndFood(request),
 	}
 
 	fmt.Printf("MOVE: %s\n", response.Move)

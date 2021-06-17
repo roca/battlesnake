@@ -8,7 +8,7 @@ import (
 	"github.com/roca/battlesnake/types"
 )
 
-func AvoidSelfWallsFood(game types.GameRequest) string {
+func AvoidSelfWallsAndFood(game types.GameRequest) string {
 	//Choose a random direction to move in
 	possibleMoves := []string{"up", "down", "left", "right"}
 	move := possibleMoves[rand.Intn(len(possibleMoves))]
