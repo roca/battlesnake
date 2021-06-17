@@ -4,11 +4,9 @@ import (
 	"encoding/json"
 	"fmt"
 	"log"
-	"math/rand"
 	"net/http"
 	"os"
 
-	"github.com/robpike/filter"
 	"github.com/roca/battlesnake/strategies"
 	"github.com/roca/battlesnake/types"
 )
@@ -57,29 +55,8 @@ func HandleMove(w http.ResponseWriter, r *http.Request) {
 		log.Fatal(err)
 	}
 
-	//Choose a random direction to move in
-	possibleMoves := []string{"up", "down", "left", "right"}
-	move := possibleMoves[rand.Intn(len(possibleMoves))]
-
-	for i := 0; i < 4; i++ {
-
-		safe := strategies.AvoidSnakes(request.Board, request.You, move) && strategies.AvoidWalls(request.Board, request.You.Head, move)
-		fmt.Println(move, "Attempt", i, "AvoidedSnakes:", safe)
-		if safe || len(possibleMoves) == 0 {
-			break
-		}
-		// Drop unsafe move from possible moves
-		possibleMoves = filter.Drop(possibleMoves, func(m string) bool {
-			return m == move
-		}).([]string)
-		if len(possibleMoves) == 0 {
-			break
-		}
-		move = possibleMoves[rand.Intn(len(possibleMoves))]
-	}
-
 	response := types.MoveResponse{
-		Move: move,
+		Move: strategies.AvoidSnakesAndWalls(request),
 	}
 
 	fmt.Printf("MOVE: %s\n", response.Move)
