@@ -56,7 +56,7 @@ func HandleMove(w http.ResponseWriter, r *http.Request) {
 	}
 
 	response := types.MoveResponse{
-		Move: strategies.AvoidSnakesAndWalls(request),
+		Move: strategies.AvoidSnakesWallsAndFood(request),
 	}
 
 	fmt.Printf("MOVE: %s\n", response.Move)

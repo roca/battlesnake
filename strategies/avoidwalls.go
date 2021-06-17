@@ -4,8 +4,8 @@ import (
 	"github.com/roca/battlesnake/types"
 )
 
-func AvoidWalls(board types.Board, currentHead types.Coord, next_move string) bool {
-	futureHead := predict_future_position(currentHead, next_move)
+func AvoidWalls(board types.Board, you types.Battlesnake, next_move string) bool {
+	futureHead := predict_future_position(you.Head, next_move)
 
 	if futureHead.X < 0 || futureHead.Y < 0 {
 		return false
