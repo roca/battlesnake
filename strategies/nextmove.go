@@ -15,7 +15,7 @@ func AvoidSnakesAndWalls(game types.GameRequest) string {
 	for i := 0; i < 4; i++ {
 
 		safe := AvoidSnakes(game.Board, game.You, move) && AvoidWalls(game.Board, game.You, move)
-		fmt.Println(move, "Attempt", i, "AvoidedSnakes:", safe)
+		fmt.Println(move, "Attempt", i, "AvoidSnakesAndWalls:", safe)
 		if safe {
 			break
 		}
@@ -41,7 +41,7 @@ func AvoidSnakesWallsAndFood(game types.GameRequest) string {
 		safe := AvoidSnakes(game.Board, game.You, move) &&
 			AvoidWalls(game.Board, game.You, move) &&
 			AvoidFood(game.Board, game.You, move)
-		fmt.Println(move, "Attempt", i, "AvoidedSnakes:", safe)
+		fmt.Println(move, "Attempt", i, "AvoidSnakesWallsAndFood:", safe)
 		if safe {
 			break
 		}
