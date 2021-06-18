@@ -1,5 +1,14 @@
 name: Run tests
 
+  # push:
+  #   branches:
+  #     - master
+  #     - development
+  # pull_request:
+  #   branches:
+  #     - master
+  #     - development
+
 on:
   push:
     branches:
@@ -15,3 +24,9 @@ jobs:
         run: |
           node -v
           npm -v
+      - uses: actions/checkout@v1
+      - name: Run a script
+        uses: docker://go:latest
+        run: |
+          go version
+          ls
