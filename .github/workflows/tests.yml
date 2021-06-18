@@ -24,9 +24,9 @@ jobs:
         run: |
           node -v
           npm -v
-      - uses: actions/checkout@v1
-      - name: Run a script
-        uses: docker://go:latest
-        run: |
-          go version
-          ls
+      # - uses: actions/checkout@v1
+      # - name: Run a script
+      #   uses: docker://go:latest
+      #   run: |
+      #     go version
+      #     ls
