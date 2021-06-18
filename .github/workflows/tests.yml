@@ -21,7 +21,7 @@ jobs:
       image: golang:latest
     steps:
       - uses: actions/checkout@v1
-      - name: Run a script
+      - name: Run tests
         run: |
           go version
-          ls
+          go test test/*/**
