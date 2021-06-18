@@ -15,18 +15,13 @@ on:
       - avoid_self_2
 
 jobs:
-  run-shell-command:
+  docker-steps:
     runs-on: ubuntu-latest
+    container:
+      image: go:latest
     steps:
-      - name: echo a string
-        run: echo "Hello World"
-      - name: multiline script
+      - uses: actions/checkout@v1
+      - name: Run a script
         run: |
-          node -v
-          npm -v
-      # - uses: actions/checkout@v1
-      # - name: Run a script
-      #   uses: docker://go:latest
-      #   run: |
-      #     go version
-      #     ls
+          go version
+          ls
