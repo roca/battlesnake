@@ -21,4 +21,4 @@ jobs:
       - name: Run tests
         run: |
           go version
-          go test test/*/**
+          go test -v test/*/**
