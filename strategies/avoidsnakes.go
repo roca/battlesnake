@@ -2,8 +2,8 @@ package strategies
 
 import "github.com/roca/battlesnake/types"
 
-func AvoidSnakes(board types.Board, you types.Battlesnake, next_move string) bool {
-	futureHead := predict_future_position(you.Head, next_move)
+func AvoidSnakes(board types.Board, you types.Battlesnake, nextmove string) bool {
+	futureHead := predict_future_position(you.Head, nextmove)
 	for _, snake := range board.Snakes {
 		if !avoidSnake(futureHead, snake) {
 			return false

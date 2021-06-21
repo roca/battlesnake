@@ -4,9 +4,7 @@ import (
 	"github.com/roca/battlesnake/types"
 )
 
-func AvoidSelf(you types.Battlesnake, next_move string) bool {
-	futureHead := predict_future_position(you.Head, next_move)
+func AvoidSelf(you types.Battlesnake, nextmove string) bool {
+	futureHead := predict_future_position(you.Head, nextmove)
 	return avoidSnake(futureHead, you)
 }
-
-
