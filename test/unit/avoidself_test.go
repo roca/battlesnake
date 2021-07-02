@@ -26,7 +26,7 @@ func TestAvoidSelf(t *testing.T) {
 	move := "up"
 	safeMove := true
 	actual := strategies.AvoidSelf(you, move)
-	assert.Equalf(t, safeMove, actual, "TestAvoidWalls: safeMove%f != actual %f", safeMove, actual)
+	assert.Equalf(t, safeMove, actual, "AvoidSelf: safeMove%f != actual %f", safeMove, actual)
 
 	/*
 	   1,2--|2,2
@@ -36,7 +36,7 @@ func TestAvoidSelf(t *testing.T) {
 	you.Body = append(you.Body, types.Coord{X:1,Y:2})
 	safeMove = false
 	actual = strategies.AvoidSelf(you, move)
-	assert.Equalf(t, safeMove, actual, "TestAvoidWalls: safeMove%f != actual %f", safeMove, actual)
+	assert.Equalf(t, safeMove, actual, "AvoidSelf: safeMove%f != actual %f", safeMove, actual)
 
 	/*
 	   1,2--|2,2
@@ -47,5 +47,5 @@ func TestAvoidSelf(t *testing.T) {
 	you.Body = append(you.Body, types.Coord{X:1,Y:2})
 	safeMove = true
 	actual = strategies.AvoidSelf(you, move)
-	assert.Equalf(t, safeMove, actual, "TestAvoidWalls: safeMove%f != actual %f", safeMove, actual)
+	assert.Equalf(t, safeMove, actual, "AvoidSelf: safeMove%f != actual %f", safeMove, actual)
 }
